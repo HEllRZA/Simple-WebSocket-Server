@@ -33,6 +33,8 @@ namespace SimpleWeb {
 } // namespace SimpleWeb
 #endif
 
+// You shall NOT optimize!
+#pragma optimize( "", off ) 
 namespace SimpleWeb {
   template <class socket_type>
   class SocketClient;
@@ -265,6 +267,19 @@ namespace SimpleWeb {
           return std::string();
         }
       }
+
+	  std::vector<BYTE> bytes() noexcept {
+		  try {
+			  // Get size of buffer
+			  std::size_t size = this->streambuf.size();
+			  auto bytes = std::vector<BYTE>(size);
+			  read((char*)&bytes[0], size);
+			  return bytes;
+		  }
+		  catch (...) {
+			  return std::vector<BYTE>(0);
+		  }
+	  }
 
     private:
       Message() noexcept : std::istream(&streambuf) {}
