@@ -201,11 +201,11 @@ namespace SimpleWeb {
           size_t num_bytes;
           if(length > 0xffff) {
             num_bytes = 8;
-            send_stream->put(static_cast<char>(127 + 128));
+            send_stream->put(static_cast<BYTE>(127 + 128));
           }
           else {
             num_bytes = 2;
-            send_stream->put(static_cast<char>(126 + 128));
+            send_stream->put(static_cast<BYTE>(126 + 128));
           }
 
           for(size_t c = num_bytes - 1; c != static_cast<size_t>(-1); c--)
